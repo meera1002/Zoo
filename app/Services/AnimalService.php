@@ -12,7 +12,7 @@ class AnimalService implements IAnimalService
     const INCREASE_HEALTH_MAX = 25;
     public function getAnimals( )
     {
-        $result = Animal::all();
+        $result = Animal::paginate(5);
         return $result;
     }
     public function increase( )

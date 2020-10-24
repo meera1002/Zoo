@@ -1,10 +1,14 @@
 <?php
 namespace App\Helper;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+
 class Common
 {
     const HEALTH_STATUS_DEAD = 'Dead';
     const HEALTH_STATUS = 'Healthy';
     const WALKABLE_STATUS = 'Not Walkable';
+    const CACHE = "TIME";
     public static function healthStatus( $currentStatus, $breed )
     {
         if ( $currentStatus < $breed->average_health ) {
@@ -47,5 +51,26 @@ class Common
             }
         }
         return $animal;
+    }
+    public static function getTime( )
+    {
+        return Carbon::now();
+    }
+    public static function zooTime( )
+    {
+        if ( Cache::has( static::CACHE ) ) {
+            return Cache::get( static::CACHE );
+        }
+        return self::setDefaultTime();
+    }
+    private static function setDefaultTime( )
+    {
+        $defaultTime = self::getTime();
+        Cache::forever( static::CACHE, $defaultTime );
+        return $defaultTime;
+    }
+    public static function increaseZooTime( $hours = 1 )
+    {
+        Cache::forever( static::CACHE, self::zooTime()->addHours( $hours ) );
     }
 }

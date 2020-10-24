@@ -15,7 +15,7 @@
     <div class="container">
         <div class="col-12">
             <h2>Animals</h2>
-            <div class="text-right">Current time</div>
+            <div class="text-right">Current time  {{ $currentTime->format('d-m-Y H:i') }}({{ $currentTime->diffInHours($defaultTime) }} Hours played)</div>
         </div>
         <div class="btn-group mb-3">
 
@@ -27,7 +27,14 @@
         </div>
 
         <div class="clearfix">&nbsp;</div>
+        @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+
         <div class="col-12">
+            @if($animals->total() > 0)
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
@@ -37,7 +44,9 @@
 
                 </tr>
                 </thead>
+
                 <tbody>
+
                 @foreach($animals as $animal)
                     <tr>
 
@@ -48,8 +57,12 @@
                 @endforeach
                 </tbody>
             </table>
-
-
+            {{ $animals->links() }}
+            @else
+                <div class="alert alert-info">
+                   No records found
+                </div>
+            @endif
         </div>
     </div>
 </section>
