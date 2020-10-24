@@ -71,6 +71,12 @@ class Common
     }
     public static function increaseZooTime( $hours = 1 )
     {
+
         Cache::forever( static::CACHE, self::zooTime()->addHours( $hours ) );
+
+    }
+    public static function forgetTime( )
+    {
+        Cache::forget(static::CACHE);
     }
 }

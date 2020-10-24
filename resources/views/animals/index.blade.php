@@ -15,7 +15,7 @@
     <div class="container">
         <div class="col-12">
             <h2>Animals</h2>
-            <div class="text-right">Current time  {{ $currentTime->format('d-m-Y H:i') }}({{ $currentTime->diffInHours($defaultTime) }} Hours played)</div>
+            <div class="text-right">Current time  {{ $currentTime->format('d-m-Y H:i') }}( {{ $defaultTime }} Hours played)</div>
         </div>
         <div class="btn-group mb-3">
 

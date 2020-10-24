@@ -16,6 +16,7 @@ class TimeComposer
      */
     public function compose( View $view )
     {
-        $view->with( 'currentTime', Common::zooTime() )->with( 'defaultTime', Common::getTime() );
+        $hourdiff = ceil((strtotime(Common::zooTime()) - strtotime(Common::getTime()))/3600);
+        $view->with( 'currentTime', Common::zooTime() )->with( 'defaultTime', $hourdiff );
     }
 }
